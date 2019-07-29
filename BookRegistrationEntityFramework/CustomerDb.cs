@@ -55,5 +55,30 @@ namespace BookRegistrationEntityFramework
                 return c;
             }
         }
+
+        public static Customer UpdateCustomer(Customer c)
+        {
+            using(var context = new BookRegistrationEntities())
+            {
+                context.Customer.Add(c);
+
+                // Tell EF we are updating an existing entity.
+                context.Entry(c).State = System.Data.Entity.EntityState.Modified;
+                context.SaveChanges();
+                return c;
+
+            }
+        }
+
+        public static void DeleteCustomer(Customer c)
+        {
+            using (var context = new BookRegistrationEntities())
+            {
+                context.Customer.Add(c);
+
+                context.Entry(c).State = System.Data.Entity.EntityState.Deleted;
+                int rowsAffected = context.SaveChanges();
+            }
+        }
     }
 }
